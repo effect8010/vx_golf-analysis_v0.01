@@ -1,0 +1,23 @@
+{
+  "name": "golf-simulator-analysis",
+  "version": "0.1.0",
+  "description": "골프 시뮬레이터 라운드 분석 서비스",
+  "scripts": {
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "init-db": "cd server && npm run init-db",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "bcryptjs": "^3.0.2",
+    "sqlite3": "^5.1.7"
+  }
+}
