@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/vx_golf-analysis_v0.01/static/css/main.401ca935.css",
-    "main.js": "/vx_golf-analysis_v0.01/static/js/main.d3a351d9.js",
+    "main.js": "/vx_golf-analysis_v0.01/static/js/main.418074df.js",
     "static/js/80.5b6449c2.chunk.js": "/vx_golf-analysis_v0.01/static/js/80.5b6449c2.chunk.js",
-    "static/js/946.572fe736.chunk.js": "/vx_golf-analysis_v0.01/static/js/946.572fe736.chunk.js",
+    "static/js/759.1a8b4b40.chunk.js": "/vx_golf-analysis_v0.01/static/js/759.1a8b4b40.chunk.js",
     "static/js/832.4247a98d.chunk.js": "/vx_golf-analysis_v0.01/static/js/832.4247a98d.chunk.js",
     "static/js/220.e95ed843.chunk.js": "/vx_golf-analysis_v0.01/static/js/220.e95ed843.chunk.js",
     "static/js/417.9269b5ca.chunk.js": "/vx_golf-analysis_v0.01/static/js/417.9269b5ca.chunk.js",
@@ -16,6 +16,6 @@
   },
   "entrypoints": [
     "static/css/main.401ca935.css",
-    "static/js/main.d3a351d9.js"
+    "static/js/main.418074df.js"
   ]
 }
