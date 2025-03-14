@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/vx_golf-analysis_v0.01/static/css/main.d9644ac6.css",
+    "main.js": "/vx_golf-analysis_v0.01/static/js/main.951a14ad.js",
+    "static/js/737.bdfa4d3c.chunk.js": "/vx_golf-analysis_v0.01/static/js/737.bdfa4d3c.chunk.js",
+    "static/js/22.32a8a10d.chunk.js": "/vx_golf-analysis_v0.01/static/js/22.32a8a10d.chunk.js",
+    "static/js/49.4e518cbf.chunk.js": "/vx_golf-analysis_v0.01/static/js/49.4e518cbf.chunk.js",
+    "static/js/47.c5d93dda.chunk.js": "/vx_golf-analysis_v0.01/static/js/47.c5d93dda.chunk.js",
+    "static/js/920.aaaa1266.chunk.js": "/vx_golf-analysis_v0.01/static/js/920.aaaa1266.chunk.js",
+    "static/js/981.10b6cc93.chunk.js": "/vx_golf-analysis_v0.01/static/js/981.10b6cc93.chunk.js",
+    "static/js/444.bcc12af4.chunk.js": "/vx_golf-analysis_v0.01/static/js/444.bcc12af4.chunk.js",
+    "static/js/393.90d851d0.chunk.js": "/vx_golf-analysis_v0.01/static/js/393.90d851d0.chunk.js",
+    "static/js/845.082b55b4.chunk.js": "/vx_golf-analysis_v0.01/static/js/845.082b55b4.chunk.js",
+    "static/js/433.767f1d40.chunk.js": "/vx_golf-analysis_v0.01/static/js/433.767f1d40.chunk.js",
+    "static/js/928.a7280ff7.chunk.js": "/vx_golf-analysis_v0.01/static/js/928.a7280ff7.chunk.js",
+    "static/js/385.4923e82e.chunk.js": "/vx_golf-analysis_v0.01/static/js/385.4923e82e.chunk.js",
+    "static/js/187.7a7ff3d3.chunk.js": "/vx_golf-analysis_v0.01/static/js/187.7a7ff3d3.chunk.js",
+    "static/js/569.0cd0f19a.chunk.js": "/vx_golf-analysis_v0.01/static/js/569.0cd0f19a.chunk.js",
+    "static/js/946.de8ab444.chunk.js": "/vx_golf-analysis_v0.01/static/js/946.de8ab444.chunk.js",
+    "static/js/846.a52fe3a4.chunk.js": "/vx_golf-analysis_v0.01/static/js/846.a52fe3a4.chunk.js",
+    "static/js/372.906bd9ca.chunk.js": "/vx_golf-analysis_v0.01/static/js/372.906bd9ca.chunk.js",
+    "static/js/791.1d827adc.chunk.js": "/vx_golf-analysis_v0.01/static/js/791.1d827adc.chunk.js",
+    "static/js/770.5d096c83.chunk.js": "/vx_golf-analysis_v0.01/static/js/770.5d096c83.chunk.js",
+    "static/js/546.d38d6483.chunk.js": "/vx_golf-analysis_v0.01/static/js/546.d38d6483.chunk.js",
+    "index.html": "/vx_golf-analysis_v0.01/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.d9644ac6.css",
+    "static/js/main.951a14ad.js"
+  ]
+}

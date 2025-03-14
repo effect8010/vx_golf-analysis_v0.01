@@ -1,0 +1,16 @@
+---
+description: 코드 수정할때 참고 해야하는 개발 규칙
+globs: 
+alwaysApply: false
+---
+
+
+
+[golf-simulator-rules.json](mdc:.cursor/rules/golf-simulator-rules.json)
+[settings.json](mdc:.cursor/settings.json)
+1.cursor/rules/golf-simulator-rules.json 파일에 프로젝트의 코딩 규칙과 구조적 가이드라인이 저장되어 있습니다.
+2.cursor/settings.json 파일은 Cursor IDE가 이 규칙들을 사용하도록 설정합니다.
+
+3. 코드를 수정하거나 생성할때 기존에 있는 코드를 분석하여 이를 기반으로 작업을 수행한다.
+4. 불필요한 파일은 삭제 한다.
+5. 수정되거나 신규 생성될때 마다 현재 개발 상태에 대해서 readme에 기록하여 최신 상태를 유지한다. 

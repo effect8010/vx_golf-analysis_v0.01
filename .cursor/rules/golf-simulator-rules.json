@@ -1,0 +1,117 @@
+{
+  "architecture": {
+    "client": {
+      "structure": {
+        "components": "재사용 가능한 UI 컴포넌트만 배치",
+        "pages": "라우트별 페이지 컴포넌트만 배치",
+        "services": "API 호출 관련 로직만 포함",
+        "utils": "공통 유틸리티 함수만 포함",
+        "contexts": "React Context 관련 코드만 포함",
+        "hooks": "커스텀 훅만 포함"
+      }
+    },
+    "server": {
+      "structure": {
+        "controllers": "요청 처리 로직만 포함",
+        "models": "데이터베이스 모델 및 쿼리만 포함",
+        "routes": "라우트 정의만 포함",
+        "middlewares": "미들웨어 함수만 포함",
+        "utils": "공통 유틸리티 함수만 포함",
+        "services": "비즈니스 로직만 포함"
+      }
+    }
+  },
+  "naming": {
+    "components": "파스칼 케이스(PascalCase)",
+    "functions": "카멜 케이스(camelCase)",
+    "constants": "대문자 스네이크 케이스(UPPER_SNAKE_CASE)",
+    "files": {
+      "components": "파스칼 케이스(PascalCase.jsx)",
+      "utils": "카멜 케이스(camelCase.js)",
+      "hooks": "use 접두사 사용(useHookName.js)"
+    }
+  },
+  "formatting": {
+    "indentation": "2 spaces",
+    "maxLineLength": 100,
+    "quotes": "single",
+    "semi": true
+  },
+  "patterns": {
+    "asyncHandling": "async/await 사용, try/catch로 오류 처리",
+    "stateManagement": "전역 상태는 Context API 또는 Redux 사용",
+    "apiCalls": "서비스 계층에서만 API 호출 수행",
+    "dataFetching": "useEffect 내부에서 비동기 함수 정의 후 호출"
+  },
+  "antiPatterns": {
+    "componentSize": "단일 파일 500줄 초과 금지",
+    "functionSize": "함수 50줄 초과 금지",
+    "nestedCallbacks": "3단계 이상 중첩 콜백 금지",
+    "hardCodedValues": "하드코딩된 값 대신 상수 사용",
+    "duplicateCode": "3회 이상 반복되는 코드는 함수로 추출"
+  },
+  "imports": {
+    "order": ["react", "외부 라이브러리", "내부 컴포넌트", "utils/services", "css/styles"],
+    "aliases": {
+      "@components": "./src/components",
+      "@pages": "./src/pages",
+      "@services": "./src/services",
+      "@utils": "./src/utils",
+      "@hooks": "./src/hooks",
+      "@styles": "./src/styles"
+    }
+  },
+  "documentation": {
+    "components": "props 설명 필수 포함",
+    "functions": "입력, 출력, 예외 상황 설명 필수",
+    "apis": "요청/응답 형식 및 에러 케이스 문서화"
+  },
+  "testing": {
+    "unitTests": "모든 유틸리티 함수에 단위 테스트 작성",
+    "componentTests": "주요 상태 변화 및 이벤트 핸들러 테스트 작성"
+  },
+  "projectSpecific": {
+    "database": {
+      "models": "모든 데이터베이스 접근은 모델 함수 통해서만 수행",
+      "transactions": "여러 테이블 수정 작업은 트랜잭션으로 래핑"
+    },
+    "auth": {
+      "tokenHandling": "토큰은 authService를 통해서만 관리",
+      "securityChecks": "모든 인증 요구 라우트에 미들웨어 적용"
+    },
+    "ui": {
+      "components": "모든 UI 컴포넌트는 MUI 디자인 시스템 활용",
+      "responsiveness": "모든 컴포넌트는 모바일/태블릿/데스크톱 호환"
+    },
+    "logging": {
+      "server": "모든 API 요청/응답 및 오류 로깅",
+      "client": "중요 작업 및 오류 상황 로깅"
+    },
+    "partners": {
+      "queryBased": "라운드 동반자는 별도 테이블이 아닌 라운드 ID 기반 조회 방식 사용",
+      "view": "round_partners_view를 사용하여 동반자 정보 조회",
+      "api": {
+        "getUserPartners": "사용자의 모든 동반자 목록 조회 API",
+        "getRoundParticipants": "특정 라운드의 참가자 목록 조회 API",
+        "getPartnerStats": "사용자별 동반자 통계 조회 API"
+      }
+    },
+    "userAccounts": {
+      "testCredentials": "개발/테스트 환경에서 ID와 비밀번호를 동일하게 설정"
+    }
+  },
+  "automation": {
+    "linting": "커밋 전 ESLint 검사 실행",
+    "formatting": "커밋 전 Prettier 실행",
+    "testing": "PR 전 테스트 자동 실행"
+  },
+  "validation": {
+    "prChecklist": [
+      "중복 코드 검사 완료",
+      "불필요한 콘솔 로그 제거",
+      "성능 병목 확인",
+      "접근성 검사 완료",
+      "크로스 브라우저 테스트 완료"
+    ]
+  }
+} 

@@ -1,0 +1,23 @@
+{
+  "rules": [
+    ".cursor/rules/golf-simulator-rules.json"
+  ],
+  "excluded_folders": [
+    "node_modules",
+    "dist",
+    "build",
+    ".git"
+  ],
+  "settings": {
+    "linting": {
+      "eslint": {
+        "enabled": true
+      }
+    },
+    "formatting": {
+      "prettier": {
+        "enabled": true
+      }
+    }
+  }
+} 

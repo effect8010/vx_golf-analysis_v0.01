@@ -1,0 +1,16 @@
+---
+description: 항상 참고 해야하는 개발 규칙
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
+1. 모든 DB 관련 스크립트는 스크립트 위치를 기준으로 절대 경로 설정
+2. PowerShell에서 실행 시 명령어 분리 사용
+3. 데이터베이스 연결 전 경로 출력하여 확인
+4. 대용량 데이터 출력 시 파일로 저장하는 방식 사용
+5. 모든 오류 사례를 로그 파일에 기록
+6. 비동기 작업 후 항상 리소스 정리 (db.close() 등)
