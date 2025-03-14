@@ -307,3 +307,32 @@ npm run server
 
 - 현재 버전: 0.3.0
 - 마지막 업데이트: 2023-03-14 
+
+## 온라인 개발 환경 설정
+이 프로젝트는 GitHub을 통한 협업 및 온라인 개발을 지원합니다. 아래 지침을 따라 GitHub에서 개발을 시작하세요.
+
+### GitHub 저장소 클론하기
+```bash
+git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+cd REPO_NAME
+```
+
+### 개발 브랜치 생성 및 사용하기
+```bash
+# 기능 개발용 브랜치 생성
+git checkout -b feature/new-feature
+
+# 수정 후 커밋
+git add .
+git commit -m "새로운 기능 구현"
+
+# 원격 저장소에 푸시
+git push origin feature/new-feature
+```
+
+### GitHub Flow 사용하기
+1. 메인 브랜치는 항상 배포 가능한 상태를 유지합니다.
+2. 새 기능 개발은 항상 feature 브랜치에서 시작합니다.
+3. 로컬 개발이 완료되면 GitHub에 푸시합니다.
+4. Pull Request를 생성하여 코드 리뷰를 요청합니다.
+5. 코드 리뷰 후 메인 브랜치에 병합합니다. 
