@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
-const API_URL = '/api/auth';
+const API_URL = `${API_BASE_URL}/api/auth`;
 
 // 로컬 스토리지에서 토큰 가져오기
 export const getToken = () => {

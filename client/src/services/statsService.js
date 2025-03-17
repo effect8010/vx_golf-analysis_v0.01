@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { authHeader } from './authService';
+import { API_BASE_URL, APP_CONFIG } from '../config';
 
-const API_URL = '/api/stats';
+const API_URL = `${API_BASE_URL}/api/stats`;
 
 // 캐시 관리를 위한 객체
 const statsCache = {
   data: {},
   timestamp: {},
-  cacheDuration: 5 * 60 * 1000, // 5분(밀리초)
+  cacheDuration: APP_CONFIG.cacheExpiry, // config에서 설정 가져오기
   
   // 캐시에 데이터 저장
   set(key, data) {
