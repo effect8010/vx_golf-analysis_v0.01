@@ -4,7 +4,7 @@
 
 // API 기본 URL 설정
 export const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://vx-golf-analysis-api.onrender.com' // 배포된 백엔드 API URL
+  ? 'https://golf-simulator-api.onrender.com' // 배포된 백엔드 API URL (Render.com에 맞게 수정)
   : '';
 
 // 애플리케이션 경로 접두사 (GitHub Pages 배포 시 사용)

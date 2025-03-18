@@ -2,100 +2,47 @@
 
 골프 시뮬레이터 사용자의 라운드 데이터를 분석하여 다양한 인사이트를 제공하는 서비스입니다.
 
-## 최근 개발 상태 (업데이트: 2023-03-14)
+[![Deploy Infrastructure](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/deploy-infrastructure.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/deploy-infrastructure.yml)
+[![CI/CD Pipeline](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/ci-cd.yml)
+[![API 문서](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/api-docs.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/api-docs.yml)
 
-### 최종 프로젝트 구조 정리 (v0.3.0)
-- 프로젝트 폴더 구조 완전 정리
-  - 루트 디렉토리 정리 (불필요한 파일 제거)
-  - 스크립트 파일 통합 관리를 위한 분류 체계 확립
-  - PowerShell 호환성 스크립트 추가 및 개선
-- 코드 중복 제거 및 최적화
-  - 동일 기능 수행 스크립트 병합
-  - 불필요한 로깅 제거
-  - 코드 주석 개선
-- 자동화 스크립트 개발 및 적용
-  - 스크립트 파일 자동 분류 도구
-  - 배치 파일 관리 도구
-  - PowerShell 스크립트 자동 변환 도구
+## 최근 개발 상태 (업데이트: 2023-03-18)
 
-### 코드 리팩토링 및 성능 개선
-- 클라이언트 성능 최적화
-  - React 컴포넌트 지연 로딩(lazy loading) 구현
-  - 페이지 로딩 시 사용자 경험 개선
-  - 오류 처리 및 알림 기능 강화
-- 서버 코드 구조 개선
-  - 로깅 시스템 개선 (파일 기반 로깅 추가)
-  - 오류 처리 미들웨어 강화
-  - 프로세스 예외 처리 추가
-  - API 응답 형식 표준화
-- 코드 품질 향상
-  - 미들웨어 문서화 및 주석 개선
-  - 중복 코드 제거 및 코드 재사용성 증가
-  - 코드 가독성 향상을 위한 구조 개선
+### GitHub 생태계 100% 활용 아키텍처 (v0.5.0)
+- 개발 환경
+  - GitHub Codespaces로 완전 통합된 개발 환경 구축
+  - 컨테이너화된 개발 환경 내 MongoDB 내장
+  - VS Code 통합 및 필수 확장 기능 자동 설정
+- 인프라 관리
+  - Terraform + GitHub Actions로 MongoDB Atlas 클러스터 자동 프로비저닝
+  - 인프라 변경 사항 자동 감지 및 적용
+  - 환경별 설정 관리 (개발, 테스트, 프로덕션)
+- 배포 자동화
+  - GitHub Actions로 CI/CD 파이프라인 완전 자동화
+  - AWS Lambda를 사용한 서버리스 백엔드 배포
+  - 테스트, 빌드, 배포 과정 통합
+- 백엔드 아키텍처
+  - MongoDB Atlas 데이터베이스 연동
+  - 서버리스 아키텍처로 확장성 및 비용 효율성 확보
+  - API 문서 자동 생성 및 배포
+- 프로젝트 관리
+  - 이슈 템플릿 및 프로젝트 보드 구성
+  - GitHub Discussions으로 커뮤니케이션 강화
+  - 코드 품질 관리 및 자동화된 코드 리뷰
 
-### 프로젝트 구조 정리
-- 스크립트 파일 체계적 분류
-  - `scripts/db-scripts` : 데이터베이스 관련 스크립트
-  - `scripts/test-scripts` : 테스트 및 디버깅 스크립트
-  - `scripts/utils-scripts` : 유틸리티 스크립트
-  - `scripts/batch-scripts` : 배치 스크립트 파일
-  - `scripts/powershell-scripts` : PowerShell 호환 스크립트
-- PowerShell 호환성 개선
-  - 배치 파일을 PowerShell 스크립트로 자동 변환
-  - 다양한 운영 환경에서의 안정성 향상
-  - 스크립트 실행 도우미 추가
-- 프로젝트 관리 자동화
-  - 스크립트 정리 자동화 도구 개발
-  - 배치 파일 관리 도구 구현
-  - 로그 기록을 통한 작업 추적 개선
-
-### 스크립트 파일 정리 및 구조화 (이전 업데이트)
-- 스크립트 파일 분류 체계 구축
-  - `scripts/db-scripts` : 데이터베이스 관련 스크립트 (14개 파일)
-  - `scripts/test-scripts` : 테스트 및 디버깅 스크립트 (7개 파일)
-  - `scripts/utils-scripts` : 유틸리티 스크립트 (12개 파일)
-- 목적에 맞는 파일 이름 표준화
-- 중복 파일 제거
-- 스크립트 정리 자동화 툴 개발
-  - 파일명 패턴 기반 카테고리 분류
-  - 로그 기록을 통한 정리 내역 추적
-
-### 코드 개선 및 버그 수정 (이전 업데이트)
-- API 엔드포인트 표준화 및 일관성 유지
-  - 사용자 통계 API의 `/api/stats/users/me` 엔드포인트 추가
-  - 트렌드 통계 API의 `/api/stats/user-me/trends/:period/:count` 엔드포인트 추가
-  - 동반자 통계 API의 `/api/stats/users/me/partner-stats` 엔드포인트 추가
-- 인증 미들웨어 통합 및 개선
-  - `authenticateToken`과 `authenticateJWT` 함수를 통합하여 일관성 제공
-  - 토큰 오류 처리 강화 및 로그 개선
-- 서버 구조 개선
-  - 로깅 기능 강화
-  - 오류 처리 미들웨어 개선
-  - 헬스 체크 API 개선
-- 대시보드 UI 개선 및 버그 수정
-  - 라운드 히스토리 데이터 표시 문제 해결
-  - 통계 데이터 로딩 오류 수정
-  - 리소스 로딩 오류 처리 개선
-  - 네트워크 오류 시 자동 재시도 로직 추가
-
-### 골프 코스 관련 API 기능 확장 (이전 업데이트)
-- 코스 수정 기능 추가
-- 코스 삭제 기능 추가
-- 홀 정보 수정 기능 추가
-- 홀 정보 삭제 기능 추가
-- 라운드 데이터 입력 스크립트 추가
-  - 홀별 라운드 결과 데이터 입력
-  - 샷 데이터 입력 
-  - 라운드 동반자 정보 입력
-- 프로젝트 정리
-  - 중복 파일 및 테스트 파일 정리
-  - DB 관련 스크립트를 절대 경로로 변경
-  - 코드 최적화 및 불필요한 파일 제거
-- 데이터베이스 구조 개선
-  - 동반자 관계를 테이블에서 조회 방식으로 변경
-  - `round_partners` 테이블 제거
-  - 동반자 조회 API 개선
-  - 사용자 비밀번호를 사용자 ID와 동일하게 설정(테스트 용이성 개선)
+### 웹 배포를 위한 아키텍처 개선 (v0.4.0)
+- 데이터베이스를 SQLite에서 MongoDB로 마이그레이션
+  - 클라우드 호스팅 지원을 위한 MongoDB Atlas 도입
+  - 데이터 모델 재설계 및 스키마 최적화
+  - 마이그레이션 스크립트 개발
+- 백엔드 서버 클라우드 배포
+  - 서버리스 아키텍처로 전환 (AWS Lambda)
+  - 환경 변수 및 설정 파일 최적화
+  - CI/CD 파이프라인 구성 (GitHub Actions)
+- 프론트엔드 배포 개선
+  - GitHub Pages 배포 최적화
+  - 해시 라우팅 개선
+  - API 연결 설정 최적화
 
 ## 기능 개요
 
@@ -109,8 +56,9 @@
 ### 백엔드
 - Node.js
 - Express
-- SQLite (Better-SQLite3)
-- JWT Authentication
+- AWS Lambda (서버리스)
+- MongoDB Atlas
+- Mongoose
 
 ### 프론트엔드
 - React (지연 로딩 적용)
@@ -119,6 +67,13 @@
 - Chart.js / Recharts
 - Axios
 - Formik & Yup
+
+### 인프라 및 DevOps
+- GitHub Actions (CI/CD)
+- Terraform (IaC)
+- AWS Lambda
+- GitHub Codespaces
+- MongoDB Atlas
 
 ## 프로젝트 구조
 
@@ -133,171 +88,81 @@
 │       └── utils/         # 유틸리티 함수
 │
 ├── server/                # 백엔드 코드
+│   ├── config/            # 설정 파일
 │   ├── controllers/       # 컨트롤러
 │   ├── models/            # 데이터 모델
 │   ├── routes/            # API 라우트
 │   ├── middlewares/       # 미들웨어
 │   └── utils/             # 유틸리티 함수
 │
-├── data/                  # 데이터베이스 파일
-├── logs/                  # 로그 파일
-└── scripts/               # 유틸리티 스크립트
-    ├── db-scripts/        # 데이터베이스 관련 스크립트
-    ├── test-scripts/      # 테스트 스크립트
-    ├── utils-scripts/     # 기타 유틸리티 스크립트
-    ├── batch-scripts/     # 배치 파일 스크립트
-    └── powershell-scripts/ # PowerShell 호환 스크립트
+├── scripts/               # 유틸리티 스크립트
+│   ├── db-scripts/        # 데이터베이스 관련 스크립트
+│   ├── migration/         # 데이터 마이그레이션 스크립트
+│   ├── test-scripts/      # 테스트 스크립트
+│   └── utils-scripts/     # 기타 유틸리티 스크립트
+│
+├── terraform/             # 인프라 코드 (IaC)
+│
+├── .devcontainer/         # GitHub Codespaces 설정
+│
+├── .github/               # GitHub 관련 설정
+│   ├── ISSUE_TEMPLATE/    # 이슈 템플릿
+│   └── workflows/         # GitHub Actions 워크플로우
+│
+└── docs/                  # 문서
 ```
 
-## 설치 방법
+## 개발 환경 설정
 
-### 사전 요구사항
-- Node.js (v14 이상)
-- npm 또는 yarn
+### GitHub Codespaces (권장)
+가장 간단한 방법은 GitHub Codespaces를 사용하는 것입니다:
 
-### 전체 프로젝트 설치 (한 번에)
+1. 이 저장소에서 "Code" 버튼 클릭
+2. "Codespaces" 탭 선택
+3. "Create codespace on main" 클릭
+
+Codespaces에서는 모든 필요한 도구와 종속성이 자동으로 설정됩니다.
+
+### 로컬 환경 설정
+로컬에서 개발하려면:
+
 ```bash
-# 프로젝트 루트 디렉토리에서
-npm run install-all
-```
+# 저장소 클론
+git clone https://github.com/effect8010/vx_golf-analysis_v0.01.git
+cd vx_golf-analysis_v0.01
 
-### 백엔드 설치
-```bash
-# 프로젝트 루트 디렉토리에서
-cd server
+# 종속성 설치
 npm install
+cd server && npm install
+cd ../client && npm install
+
+# 환경 변수 설정
+cp .env.example .env
+# .env 파일을 편집하여 필요한 설정을 입력하세요
 ```
 
-### 프론트엔드 설치
-```bash
-# 프로젝트 루트 디렉토리에서
-cd client
-npm install
-```
+## CI/CD 파이프라인
 
-## 실행 방법
+이 프로젝트는 완전 자동화된 CI/CD 파이프라인을 사용합니다:
 
-### Windows 환경에서 간편하게 실행 (권장)
-```
-start-app.bat
-```
-이 bat 파일은 백엔드 서버와 프론트엔드를 별도의 창에서 각각 실행합니다.
-- 백엔드 서버: http://localhost:5000
-- 프론트엔드: http://localhost:3000
-
-### PowerShell 환경에서 실행 (권장)
-```powershell
-.\scripts\powershell-scripts\Run-Scripts.ps1
-```
-이 PowerShell 스크립트는 메뉴를 통해 다양한 스크립트를 선택해서 실행할 수 있습니다.
-
-### 개발 모드에서 실행 (동시에)
-```bash
-# 프로젝트 루트 디렉토리에서
-npm run dev
-```
-
-#### 백엔드 서버만 실행
-```bash
-# Windows 환경에서 실행
-start-server.bat
-
-# PowerShell 환경에서 실행
-.\scripts\powershell-scripts\start-server.ps1
-
-# 또는 npm 스크립트 사용
-npm run server
-```
-
-#### 프론트엔드 개발 서버만 실행
-```bash
-# Windows 환경에서 실행
-start-client.bat
-
-# PowerShell 환경에서 실행
-.\scripts\powershell-scripts\start-client.ps1
-
-# 또는 npm 스크립트 사용
-npm run client
-```
-
-### 데이터베이스 초기화
-```bash
-npm run init-db
-```
-
-### 샘플 데이터 생성
-```bash
-node scripts/utils-scripts/generate-sample-data.js
-```
-
-### 프론트엔드 개발 시작하기
-프론트엔드 개발 환경을 빠르게 설정하려면 다음 스크립트를 실행하세요:
-
-```bash
-node scripts/utils-scripts/setup-frontend.js
-```
-
-이 스크립트는 다음 작업을 수행합니다:
-- 필요한 디렉토리 구조 생성
-- 기본 자산 파일 복사
-- 필요한 패키지 설치
-
-### 프로덕션 빌드 및 실행
-```bash
-# 프론트엔드 빌드
-npm run build
-
-# 백엔드 서버 실행 (프론트엔드 정적 파일 제공)
-npm run server
-```
+1. **테스트**: 코드 푸시 시 자동으로 테스트 실행
+2. **인프라 배포**: Terraform을 통해 필요한 인프라 자동 생성
+3. **백엔드 배포**: AWS Lambda를 사용한 서버리스 배포
+4. **프론트엔드 배포**: GitHub Pages에 자동 배포
+5. **문서 생성**: API 문서 자동 생성 및 배포
 
 ## API 문서
 
-주요 API 엔드포인트:
+API 문서는 자동으로 생성되어 다음 주소에서 확인 가능합니다:
+https://effect8010.github.io/vx_golf-analysis_v0.01/docs/api/
 
-### 인증 API
-- `POST /api/auth/register` - 사용자 회원가입
-- `POST /api/auth/login` - 사용자 로그인
-- `GET /api/auth/me` - 현재 인증된 사용자 정보 조회
+## 기여 방법
 
-### 사용자 API
-- `GET /api/users/:id` - 사용자 정보 조회
-- `PUT /api/users/:id` - 사용자 정보 업데이트
-- `GET /api/users/:id/partners` - 사용자의 동반자 목록 조회
-
-### 골프 코스 API
-- `GET /api/courses` - 골프 코스 목록 조회
-- `GET /api/courses/:id` - 특정 코스 상세 정보 조회
-- `POST /api/courses` - 새 골프 코스 추가 (관리자)
-- `PUT /api/courses/:id` - 골프 코스 정보 수정 (관리자)
-- `DELETE /api/courses/:id` - 골프 코스 삭제 (관리자)
-- `POST /api/courses/:id/courses/:courseNumber/holes` - 코스에 홀 정보 추가 (관리자)
-- `PUT /api/courses/:id/courses/:courseNumber/holes/:holeId` - 홀 정보 수정 (관리자)
-- `DELETE /api/courses/:id/courses/:courseNumber/holes/:holeId` - 홀 정보 삭제 (관리자)
-
-### 라운드 API
-- `GET /api/rounds` - 라운드 목록 조회
-- `GET /api/rounds/history` - 최근 라운드 기록 조회
-- `GET /api/rounds/:id` - 특정 라운드 상세 정보 조회
-- `POST /api/rounds` - 새 라운드 기록 추가
-- `GET /api/rounds/:id/shots` - 라운드의 모든 샷 정보 조회
-
-### 샷 API
-- `GET /api/shots/:id` - 특정 샷 상세 정보 조회
-- `PUT /api/shots/:id` - 샷 정보 업데이트
-- `POST /api/rounds/:roundId/shots` - 라운드에 새 샷 추가
-
-### 통계 API
-- `GET /api/stats/users/me` - 현재 로그인한 사용자 종합 통계 조회
-- `GET /api/stats/users/:id` - 사용자 종합 통계 조회
-- `GET /api/stats/users/:id/clubs/:clubType?` - 클럽별 통계 조회
-- `GET /api/stats/users/:id/putting` - 퍼팅 통계 조회
-- `GET /api/stats/user-me/trends/:period/:count` - 현재 로그인한 사용자의 기간별 통계 추이 조회
-- `GET /api/stats/users/:id/trends/:period/:count` - 사용자의 기간별 통계 추이 조회
-- `GET /api/stats/users/:id/courses/:courseId?` - 코스별 통계 조회
-- `GET /api/stats/users/me/partner-stats` - 현재 로그인한 사용자의 동반자 비교 통계 조회
-- `GET /api/stats/courses/:courseId/difficulty` - 특정 코스의 홀별 난이도 통계 조회
+1. 이 저장소를 포크하세요
+2. 기능 브랜치를 생성하세요 (`git checkout -b feature/amazing-feature`)
+3. 변경 사항을 커밋하세요 (`git commit -m 'Add some amazing feature'`)
+4. 브랜치에 푸시하세요 (`git push origin feature/amazing-feature`)
+5. Pull Request를 열어주세요
 
 ## 개발자
 
@@ -305,34 +170,5 @@ npm run server
 
 ## 버전 정보
 
-- 현재 버전: 0.3.0
-- 마지막 업데이트: 2023-03-14 
-
-## 온라인 개발 환경 설정
-이 프로젝트는 GitHub을 통한 협업 및 온라인 개발을 지원합니다. 아래 지침을 따라 GitHub에서 개발을 시작하세요.
-
-### GitHub 저장소 클론하기
-```bash
-git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
-cd REPO_NAME
-```
-
-### 개발 브랜치 생성 및 사용하기
-```bash
-# 기능 개발용 브랜치 생성
-git checkout -b feature/new-feature
-
-# 수정 후 커밋
-git add .
-git commit -m "새로운 기능 구현"
-
-# 원격 저장소에 푸시
-git push origin feature/new-feature
-```
-
-### GitHub Flow 사용하기
-1. 메인 브랜치는 항상 배포 가능한 상태를 유지합니다.
-2. 새 기능 개발은 항상 feature 브랜치에서 시작합니다.
-3. 로컬 개발이 완료되면 GitHub에 푸시합니다.
-4. Pull Request를 생성하여 코드 리뷰를 요청합니다.
-5. 코드 리뷰 후 메인 브랜치에 병합합니다. 
+- 현재 버전: 0.5.0
+- 마지막 업데이트: 2023-03-18 

@@ -1,0 +1,39 @@
+name: API 문서 생성
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'server/routes/**'
+      - 'server/controllers/**'
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+    name: API 문서 생성
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: swagger-jsdoc 설치
+        run: npm install -g swagger-jsdoc swagger-ui-express
+      
+      - name: API 문서 생성
+        run: |
+          mkdir -p docs/api
+          swagger-jsdoc -d server/config/swagger.js server/routes/**/*.js -o docs/api/swagger.json
+      
+      - name: GitHub Pages에 문서 배포
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+          target-folder: docs
+          branch: gh-pages
+          clean: false 

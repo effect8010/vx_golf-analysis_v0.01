@@ -8,6 +8,7 @@ const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
 const fs = require('fs');
+const { connectDB } = require('./config/db');
 
 // 로그 디렉토리 생성
 const logDir = path.join(__dirname, '../logs');
@@ -34,7 +35,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // 미들웨어 설정
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://effect8010.github.io'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -55,12 +59,12 @@ app.use('/api/rounds', roundRoutes);
 app.use('/api/shots', shotRoutes);
 app.use('/api/stats', statsRoutes);
 
-// 정적 파일 제공 (클라이언트 빌드 파일)
+// 정적 파일 제공 (프로덕션 모드에서)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
   });
 }
 
@@ -87,30 +91,29 @@ app.use((req, res, next) => {
   });
 });
 
-// 500 오류 처리 미들웨어
+// 오류 처리 미들웨어
 app.use((err, req, res, next) => {
-  // 오류 로깅
-  console.error('서버 오류:', err);
-  
-  // 클라이언트에 오류 응답
-  res.status(err.status || 500).json({
-    status: 'error',
-    message: err.message || '서버 오류가 발생했습니다.',
-    path: req.originalUrl,
-    timestamp: new Date().toISOString()
+  console.error(err.stack);
+  res.status(500).json({
+    success: false,
+    error: err.message || '서버 오류가 발생했습니다.'
   });
 });
 
-// 서버 시작
-app.listen(PORT, () => {
-  console.log('===============================================');
-  console.log(`🏌️ 골프 시뮬레이터 분석 서버가 시작되었습니다`);
-  console.log(`🌐 서버 주소: http://localhost:${PORT}`);
-  console.log(`🛠️ 서버 환경: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔄 서버 버전: 0.3.0`);
-  console.log(`📅 시작 시간: ${new Date().toLocaleString()}`);
-  console.log('===============================================');
-});
+// MongoDB 연결 후 서버 시작
+const startServer = async () => {
+  try {
+    await connectDB(); // MongoDB 연결
+    app.listen(PORT, () => {
+      console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
+    });
+  } catch (error) {
+    console.error('서버 시작 오류:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
 
 // 프로세스 종료 처리
 process.on('SIGINT', () => {

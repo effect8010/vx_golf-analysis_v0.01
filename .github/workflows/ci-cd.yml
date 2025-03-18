@@ -1,0 +1,141 @@
+name: Golf Simulator CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: 테스트
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
+    
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      
+      - name: 서버 종속성 설치
+        run: cd server && npm ci
+      
+      - name: 서버 테스트 실행
+        run: cd server && npm test
+        env:
+          MONGODB_URI: mongodb://localhost:27017/golf_simulator_test
+          JWT_SECRET: test_secret_key
+          NODE_ENV: test
+      
+      - name: 클라이언트 종속성 설치
+        run: cd client && npm ci
+      
+      - name: 클라이언트 테스트 실행
+        run: cd client && npm test
+        env:
+          CI: true
+
+  deploy-backend:
+    name: 백엔드 배포 (GitHub Actions + Serverless)
+    needs: test
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Serverless 프레임워크 설치
+        run: npm install -g serverless
+      
+      - name: 종속성 설치
+        run: cd server && npm ci
+      
+      - name: Serverless 배포
+        run: cd server && serverless deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: production
+      
+      - name: API URL 저장
+        id: serverless
+        run: |
+          API_URL=$(cd server && serverless info --verbose | grep ServiceEndpoint | sed 's/ServiceEndpoint: //')
+          echo "::set-output name=api_url::$API_URL"
+          echo "API_URL=$API_URL" >> $GITHUB_ENV
+
+  deploy-frontend:
+    name: 프론트엔드 배포 (GitHub Pages)
+    needs: deploy-backend
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: 'client/package-lock.json'
+      
+      - name: 클라이언트 종속성 설치
+        run: cd client && npm ci
+      
+      - name: API URL 설정
+        run: |
+          sed -i "s|https://golf-simulator-api.onrender.com|${{ needs.deploy-backend.outputs.api_url }}|g" client/src/config.js
+      
+      - name: 프론트엔드 빌드
+        run: cd client && npm run build
+        env:
+          PUBLIC_URL: https://${{ github.repository_owner }}.github.io/vx_golf-analysis_v0.01
+      
+      - name: GitHub Pages에 배포
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: client/build
+          branch: gh-pages
+          clean: true
+
+  run-db-migrations:
+    name: 데이터베이스 마이그레이션
+    needs: deploy-backend
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: 마이그레이션 스크립트 설치
+        run: cd scripts/migration && npm install
+      
+      - name: 마이그레이션 실행
+        run: cd scripts/migration && node import-data.js
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }} 

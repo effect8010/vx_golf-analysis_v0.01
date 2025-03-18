@@ -25,7 +25,10 @@ jobs:
       - name: Build 🔧
         run: |
           cd client
-          PUBLIC_URL=https://effect8010.github.io/vx_golf-analysis_v0.01 npm run build
+          npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4

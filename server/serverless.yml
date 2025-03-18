@@ -1,0 +1,40 @@
+service: golf-simulator-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'prod'}
+  region: ${opt:region, 'ap-northeast-2'}
+  environment:
+    NODE_ENV: production
+    MONGODB_URI: ${env:MONGODB_URI}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRES_IN: 7d
+
+functions:
+  api:
+    handler: serverless-handler.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: any
+    cors:
+      origin: '*'
+      headers:
+        - Content-Type
+        - X-Amz-Date
+        - Authorization
+        - X-Api-Key
+        - X-Amz-Security-Token
+        - X-Amz-User-Agent
+      allowCredentials: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+custom:
+  serverless-offline:
+    httpPort: 5000 
