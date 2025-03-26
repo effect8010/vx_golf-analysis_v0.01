@@ -1,0 +1,45 @@
+name: GitHub Pages 배포
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: 빌드 및 배포
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      
+      - name: 종속성 설치
+        run: |
+          npm install
+          cd client && npm install
+      
+      - name: 정적 데이터 가공
+        run: |
+          mkdir -p client/public/data
+          mkdir -p client/public/api/v1
+          node scripts/process-data.js
+          node scripts/build-api.js
+      
+      - name: 프론트엔드 빌드
+        run: cd client && npm run build
+        env:
+          PUBLIC_URL: https://${{ github.repository_owner }}.github.io/vx_golf-analysis_v0.01
+      
+      - name: GitHub Pages에 배포
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: client/build
+          branch: gh-pages
+          clean: true 

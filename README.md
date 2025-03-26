@@ -2,47 +2,37 @@
 
 골프 시뮬레이터 사용자의 라운드 데이터를 분석하여 다양한 인사이트를 제공하는 서비스입니다.
 
-[![Deploy Infrastructure](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/deploy-infrastructure.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/deploy-infrastructure.yml)
-[![CI/CD Pipeline](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/ci-cd.yml)
-[![API 문서](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/api-docs.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/api-docs.yml)
+[![GitHub Pages 배포](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/github-pages.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/github-pages.yml)
+[![코드 품질](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/code-quality.yml/badge.svg)](https://github.com/effect8010/vx_golf-analysis_v0.01/actions/workflows/code-quality.yml)
 
-## 최근 개발 상태 (업데이트: 2023-03-18)
+## 최근 개발 상태 (업데이트: 2023-03-25)
 
-### GitHub 생태계 100% 활용 아키텍처 (v0.5.0)
-- 개발 환경
+### GitHub 생태계 100% 활용 아키텍처 (v0.6.0)
+- **데이터 관리**
+  - 정적 JSON 파일로 데이터 저장 및 관리
+  - GitHub 저장소에 데이터 직접 저장
+  - 데이터 가공 로직을 클라이언트 측에서 처리
+- **개발 환경**
   - GitHub Codespaces로 완전 통합된 개발 환경 구축
-  - 컨테이너화된 개발 환경 내 MongoDB 내장
   - VS Code 통합 및 필수 확장 기능 자동 설정
-- 인프라 관리
-  - Terraform + GitHub Actions로 MongoDB Atlas 클러스터 자동 프로비저닝
-  - 인프라 변경 사항 자동 감지 및 적용
-  - 환경별 설정 관리 (개발, 테스트, 프로덕션)
-- 배포 자동화
-  - GitHub Actions로 CI/CD 파이프라인 완전 자동화
-  - AWS Lambda를 사용한 서버리스 백엔드 배포
-  - 테스트, 빌드, 배포 과정 통합
-- 백엔드 아키텍처
-  - MongoDB Atlas 데이터베이스 연동
-  - 서버리스 아키텍처로 확장성 및 비용 효율성 확보
-  - API 문서 자동 생성 및 배포
-- 프로젝트 관리
+- **배포 자동화**
+  - GitHub Actions를 통한 GitHub Pages 자동 배포
+  - 정적 사이트 생성 및 배포 워크플로우
+  - 빌드 시점에 데이터 전처리 및 최적화
+- **프로젝트 관리**
   - 이슈 템플릿 및 프로젝트 보드 구성
   - GitHub Discussions으로 커뮤니케이션 강화
   - 코드 품질 관리 및 자동화된 코드 리뷰
 
-### 웹 배포를 위한 아키텍처 개선 (v0.4.0)
-- 데이터베이스를 SQLite에서 MongoDB로 마이그레이션
-  - 클라우드 호스팅 지원을 위한 MongoDB Atlas 도입
-  - 데이터 모델 재설계 및 스키마 최적화
-  - 마이그레이션 스크립트 개발
-- 백엔드 서버 클라우드 배포
-  - 서버리스 아키텍처로 전환 (AWS Lambda)
-  - 환경 변수 및 설정 파일 최적화
-  - CI/CD 파이프라인 구성 (GitHub Actions)
-- 프론트엔드 배포 개선
-  - GitHub Pages 배포 최적화
-  - 해시 라우팅 개선
-  - API 연결 설정 최적화
+### GitHub Pages 배포를 위한 아키텍처 개선 (v0.5.0)
+- **정적 API 도입**
+  - 외부 데이터베이스 대신 정적 JSON 파일 활용
+  - 빌드 시점에 데이터 가공 및 API 응답 생성
+  - 클라이언트 측 캐싱 최적화
+- **클라이언트 애플리케이션 최적화**
+  - SPA(Single Page Application) 구조 강화
+  - 코드 분할 및 지연 로딩 구현
+  - 오프라인 기능 지원 (PWA)
 
 ## 기능 개요
 
@@ -53,63 +43,62 @@
 
 ## 기술 스택
 
-### 백엔드
-- Node.js
-- Express
-- AWS Lambda (서버리스)
-- MongoDB Atlas
-- Mongoose
-
 ### 프론트엔드
 - React (지연 로딩 적용)
-- React Router
+- React Router (해시 라우팅)
 - Material UI
 - Chart.js / Recharts
 - Axios
 - Formik & Yup
 
-### 인프라 및 DevOps
+### 데이터 관리
+- 정적 JSON 파일
+- 클라이언트 측 데이터 처리 및 캐싱
+- LocalStorage를 활용한 사용자 설정 저장
+
+### DevOps
 - GitHub Actions (CI/CD)
-- Terraform (IaC)
-- AWS Lambda
-- GitHub Codespaces
-- MongoDB Atlas
+- GitHub Pages (배포)
+- GitHub Codespaces (개발 환경)
 
 ## 프로젝트 구조
 
 ```
 /
-├── client/                # 프론트엔드 코드
-│   ├── public/            # 정적 파일
-│   └── src/
-│       ├── components/    # 재사용 가능한 컴포넌트
-│       ├── pages/         # 페이지 컴포넌트
-│       ├── services/      # API 서비스
-│       └── utils/         # 유틸리티 함수
+├── public/
+│   ├── data/               # 정적 JSON 데이터 파일
+│   │   ├── rounds/         # 라운드 데이터
+│   │   ├── users/          # 사용자 데이터
+│   │   ├── courses/        # 골프 코스 데이터
+│   │   └── statistics/     # 통계 데이터
+│   │
+│   ├── api/                # 정적 API 응답 (빌드 시 생성)
+│   │   ├── v1/rounds/      # 라운드 API
+│   │   ├── v1/users/       # 사용자 API
+│   │   └── v1/stats/       # 통계 API
+│   │
+│   └── assets/             # 정적 자산 (이미지, 아이콘 등)
 │
-├── server/                # 백엔드 코드
-│   ├── config/            # 설정 파일
-│   ├── controllers/       # 컨트롤러
-│   ├── models/            # 데이터 모델
-│   ├── routes/            # API 라우트
-│   ├── middlewares/       # 미들웨어
-│   └── utils/             # 유틸리티 함수
+├── src/
+│   ├── components/         # 재사용 가능한 컴포넌트
+│   ├── pages/              # 페이지 컴포넌트
+│   ├── hooks/              # 커스텀 React 훅
+│   ├── services/           # 데이터 서비스
+│   ├── utils/              # 유틸리티 함수
+│   └── contexts/           # React 컨텍스트
 │
-├── scripts/               # 유틸리티 스크립트
-│   ├── db-scripts/        # 데이터베이스 관련 스크립트
-│   ├── migration/         # 데이터 마이그레이션 스크립트
-│   ├── test-scripts/      # 테스트 스크립트
-│   └── utils-scripts/     # 기타 유틸리티 스크립트
+├── scripts/                # 빌드 및 데이터 처리 스크립트
+│   ├── build-api.js        # 정적 API 생성 스크립트
+│   ├── process-data.js     # 데이터 전처리 스크립트
+│   └── optimize-assets.js  # 자산 최적화 스크립트
 │
-├── terraform/             # 인프라 코드 (IaC)
+├── .devcontainer/          # GitHub Codespaces 설정
 │
-├── .devcontainer/         # GitHub Codespaces 설정
+├── .github/                # GitHub 관련 설정
+│   ├── ISSUE_TEMPLATE/     # 이슈 템플릿
+│   └── workflows/          # GitHub Actions 워크플로우
 │
-├── .github/               # GitHub 관련 설정
-│   ├── ISSUE_TEMPLATE/    # 이슈 템플릿
-│   └── workflows/         # GitHub Actions 워크플로우
-│
-└── docs/                  # 문서
+└── docs/                   # 문서
 ```
 
 ## 개발 환경 설정
@@ -133,28 +122,30 @@ cd vx_golf-analysis_v0.01
 
 # 종속성 설치
 npm install
-cd server && npm install
-cd ../client && npm install
+cd client && npm install
 
-# 환경 변수 설정
-cp .env.example .env
-# .env 파일을 편집하여 필요한 설정을 입력하세요
+# 개발 서버 실행
+npm start
 ```
 
 ## CI/CD 파이프라인
 
-이 프로젝트는 완전 자동화된 CI/CD 파이프라인을 사용합니다:
+이 프로젝트는 GitHub Actions를 통한 자동화된 배포 파이프라인을 사용합니다:
 
-1. **테스트**: 코드 푸시 시 자동으로 테스트 실행
-2. **인프라 배포**: Terraform을 통해 필요한 인프라 자동 생성
-3. **백엔드 배포**: AWS Lambda를 사용한 서버리스 배포
-4. **프론트엔드 배포**: GitHub Pages에 자동 배포
-5. **문서 생성**: API 문서 자동 생성 및 배포
+1. **코드 품질 검사**: 코드 푸시 시 자동으로 린팅 및 테스트 실행
+2. **데이터 가공**: 빌드 시점에 정적 데이터 파일 가공 및 최적화
+3. **정적 API 생성**: JSON 파일 기반 API 응답 생성
+4. **프론트엔드 빌드**: React 애플리케이션 빌드
+5. **GitHub Pages 배포**: 빌드된 웹사이트 자동 배포
 
-## API 문서
+## 데이터 구조
 
-API 문서는 자동으로 생성되어 다음 주소에서 확인 가능합니다:
-https://effect8010.github.io/vx_golf-analysis_v0.01/docs/api/
+모든 데이터는 `public/data` 폴더 내 JSON 파일로 저장됩니다:
+
+- `rounds/` - 라운드 관련 데이터
+- `users/` - 사용자 정보
+- `courses/` - 골프 코스 정보
+- `statistics/` - 사전 계산된 통계 데이터
 
 ## 기여 방법
 
@@ -170,5 +161,5 @@ https://effect8010.github.io/vx_golf-analysis_v0.01/docs/api/
 
 ## 버전 정보
 
-- 현재 버전: 0.5.0
-- 마지막 업데이트: 2023-03-18 
+- 현재 버전: 0.6.0
+- 마지막 업데이트: 2023-03-25 
