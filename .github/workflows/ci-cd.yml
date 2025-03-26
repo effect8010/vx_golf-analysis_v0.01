@@ -8,6 +8,41 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-and-deploy:
+    name: 빌드 및 배포
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 소스 코드 체크아웃
+        uses: actions/checkout@v3
+      
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: 'client/package-lock.json'
+      
+      - name: 클라이언트 종속성 설치
+        run: cd client && npm ci
+      
+      - name: 정적 데이터 생성
+        run: |
+          node scripts/process-data.js
+          node scripts/build-api.js
+      
+      - name: 프론트엔드 빌드
+        run: cd client && npm run build
+        env:
+          PUBLIC_URL: https://${{ github.repository_owner }}.github.io/vx_golf-analysis_v0.01
+      
+      - name: GitHub Pages에 배포
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: client/build
+          branch: gh-pages
+          clean: true
+
   test:
     name: 테스트
     runs-on: ubuntu-latest
@@ -81,42 +116,6 @@ jobs:
           API_URL=$(cd server && serverless info --verbose | grep ServiceEndpoint | sed 's/ServiceEndpoint: //')
           echo "::set-output name=api_url::$API_URL"
           echo "API_URL=$API_URL" >> $GITHUB_ENV
-
-  deploy-frontend:
-    name: 프론트엔드 배포 (GitHub Pages)
-    needs: deploy-backend
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 소스 코드 체크아웃
-        uses: actions/checkout@v3
-      
-      - name: Node.js 설정
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          cache: 'npm'
-          cache-dependency-path: 'client/package-lock.json'
-      
-      - name: 클라이언트 종속성 설치
-        run: cd client && npm ci
-      
-      - name: API URL 설정
-        run: |
-          sed -i "s|https://golf-simulator-api.onrender.com|${{ needs.deploy-backend.outputs.api_url }}|g" client/src/config.js
-      
-      - name: 프론트엔드 빌드
-        run: cd client && npm run build
-        env:
-          PUBLIC_URL: https://${{ github.repository_owner }}.github.io/vx_golf-analysis_v0.01
-      
-      - name: GitHub Pages에 배포
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: client/build
-          branch: gh-pages
-          clean: true
 
   run-db-migrations:
     name: 데이터베이스 마이그레이션
